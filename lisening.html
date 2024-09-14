@@ -36,6 +36,7 @@
         var audio;
         (function (){
             audio = new Audio(soundUrl);
+            audio.load()
         })()
         document.getElementById('playSoundButton').addEventListener('click', function() {
             
