@@ -2,14 +2,45 @@
 <html>
 <head>
     <title>Welcome Page</title>
+    <style>
+        body {
+            background-color: gray;
+        }
+        
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        
+        .form-container {
+            background-color: white;
+            padding: 20px;
+        }
+        
+        .form-container label,
+        .form-container input,
+        .form-container button {
+            display: block;
+            margin-bottom: 10px;
+        }
+        
+        .form-container button {
+            margin-left: auto;
+        }
+    </style>
 </head>
 <body>
-    <h1>Welcome to AudioKani</h1>
-    <form>
-        <label for="api-key">API Key:</label>
-        <input type="text" id="api-key" name="api-key" required>
-        <br>
-        <button type="submit">Start</button>
-    </form>
+    <div class="container">
+        <div class="form-container">
+            <h1>Welcome to AudioKani</h1>
+            <form>
+                <label for="api-key">API Key:</label>
+                <input type="text" id="api-key" name="api-key" required>
+                <button type="submit">Start</button>
+            </form>
+        </div>
+    </div>
 </body>
 </html>
