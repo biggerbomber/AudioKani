@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Audio Player</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: black;
+        }
+
+        .container {
+            background-color: gray;
+            padding: 20px;
+        }
+
+        input[type="text"], button {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <input type="text" id="wordInput" placeholder="Enter a word">
+        <button onclick="playSound()">Play Sound</button>
+        <button id="checkWordButton">Check Word</button>
+    </div>
+
+    <script>
+        function playSound() {
+            var word = document.getElementById("wordInput").value;
+            var soundUrl = "https://files.wanikani.com/44xqgifydmnkic65v1zlb55e5sru";
+            var audio = new Audio(soundUrl);
+            audio.play();
+        }
+
+        document.getElementById('checkWordButton').addEventListener('click', function() {
+            var word = document.getElementById("wordInput").value;
+            var knownWord = "example"; // Replace with the actual known word
+
+            if (word === knownWord) {
+                alert("The word is correct!");
+            } else {
+                alert("The word is incorrect.");
+            }
+        });
+
+        document.getElementById('wordInput').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                document.getElementById('checkWordButton').click();
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,25 +1,24 @@
-// Get the submit button element
-const submitButton = document.querySelector('#submit');
-
-// Add a click event listener to the submit button
-submitButton.addEventListener('click', () => {
-    // Make an API request
-    fetch('https://api.example.com/data', {
-        method: 'GET', // or 'POST', 'PUT', etc. depending on your API
+document.getElementById('api-form').addEventListener('submit', function(event) {
+    event.preventDefault();
+    
+    const apiKey = document.getElementById('api-key').value;
+    const url = 'https://api.wanikani.com/v2/subjects?types=vocabulary';
+    
+    fetch(url, {
+        method: 'GET',
         headers: {
-            'Content-Type': 'application/json', // Set the appropriate content type
-            // Add any additional headers required by your API
-        },
-        // Add any request body if required by your API
-        // body: JSON.stringify({ key: 'value' }),
+            'Authorization': `Bearer ${apiKey}`
+        }
     })
-        .then(response => response.json())
-        .then(data => {
-            // Handle the API response data
-            console.log(data);
-        })
-        .catch(error => {
-            // Handle any errors that occurred during the API request
-            console.error(error);
-        });
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+        // Handle the response data here
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        // Handle the error here
+    });
+
+    window.location.href="lisening.html";
 });
