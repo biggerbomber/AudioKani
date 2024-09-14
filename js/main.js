@@ -20,7 +20,7 @@ document.getElementById('api-form').addEventListener('submit', function(event) {
         // Handle the error here
     });
 
-    window.location.href="lisening.html";
+    window.location.href="test.html";
 });
 
 
