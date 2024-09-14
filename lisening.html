@@ -24,17 +24,19 @@
 <body>
     <div class="container">
         <input type="text" id="wordInput" placeholder="Enter a word">
-        <button onclick="playSound()">Play Sound</button>
+        <button id="playSoundButton">Play Sound</button>
         <button id="checkWordButton">Check Word</button>
     </div>
 
     <script>
-        function playSound() {
+        document.getElementById('playSoundButton').addEventListener('click', function() {
             var word = document.getElementById("wordInput").value;
             var soundUrl = "https://files.wanikani.com/44xqgifydmnkic65v1zlb55e5sru";
             var audio = new Audio(soundUrl);
-            audio.play();
-        }
+            audio.play().catch(function(error) {
+                console.error('Error playing audio:', error);
+            });
+        });
 
         document.getElementById('checkWordButton').addEventListener('click', function() {
             var word = document.getElementById("wordInput").value;
