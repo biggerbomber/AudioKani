@@ -92,7 +92,7 @@ async function initData() {
     var guess= document.getElementById("guess").value.trim();
     var loser = true;
     for (var i = 0; i < answers.length; i++) {
-      if(levenshteinDistance(guess,answers[i])<2){
+      if(levenshteinDistance(guess.toLowerCase(),answers[i].toLowerCase())<2){
         loser=false;
         break;
       }
@@ -102,7 +102,7 @@ async function initData() {
     }else{
       document.getElementById("guess").style.backgroundColor = "green";
     }
-    document.getElementById("guess").value = loser ? "Wrong!" : "Correct!";
+    document.getElementById("guess").value = loser ? answers[0] : "Correct!";
     setTimeout(function(){
       document.getElementById("guess").style.backgroundColor = "white";
       document.getElementById("guess").value = "";
