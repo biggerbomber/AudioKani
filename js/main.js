@@ -8,6 +8,7 @@ var hintSentences=[];
 var audioBuffers = [];
 var answers=[];
 
+var streak=0;
 
 async function wanikaniApiCall(apikey, endpoint,params) {
   const wanikaniurl = 'https://api.wanikani.com/v2/';
@@ -78,7 +79,7 @@ document.getElementById('api-form').addEventListener('submit', async function(ev
 async function initData() {
 
 
-  newVocab();
+  newVocab(true);
 
  document.getElementById("audio").addEventListener("click", function() {
     
@@ -87,11 +88,46 @@ async function initData() {
 
   });
 
+  document.getElementById("submit").addEventListener("click", function() {
+    var guess= document.getElementById("guess").value.trim();
+    var loser = true;
+    for (var i = 0; i < answers.length; i++) {
+      if(guess==answers[i]){
+        loser=false;
+        break;
+      }
+    }
+    if(loser){
+      document.getElementById("guess").style.backgroundColor = "red";
+    }else{
+      document.getElementById("guess").style.backgroundColor = "green";
+    }
+    alert(loser);
+    setTimeout(function(){
+      document.getElementById("guess").style.backgroundColor = "white";
+      document.getElementById("guess").value = "";
+      newVocab(loser);
+    }, 1000);
+  
+  }
 
 
+  );
 }
 
-async function newVocab() {
+function updateStreak(){
+  document.getElementById("streak").innerText=streak;
+}
+
+async function newVocab(loser=false) {
+  streak++;
+  if(loser){
+    streak=0;
+  }
+  updateStreak();
+  hintSentences=[];
+  audioBuffers = [];
+  answers=[];
 
   var vocabIndex = Math.floor(Math.random() * vocab.length);
   var vocabItem = vocab[vocabIndex];
