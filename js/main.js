@@ -92,7 +92,7 @@ async function initData() {
     var guess= document.getElementById("guess").value.trim();
     var loser = true;
     for (var i = 0; i < answers.length; i++) {
-      if(guess==answers[i]){
+      if(levenshteinDistance(guess,answers[i])<2){
         loser=false;
         break;
       }
@@ -102,7 +102,7 @@ async function initData() {
     }else{
       document.getElementById("guess").style.backgroundColor = "green";
     }
-    alert(loser);
+    document.getElementById("guess").value = loser ? "Wrong!" : "Correct!";
     setTimeout(function(){
       document.getElementById("guess").style.backgroundColor = "white";
       document.getElementById("guess").value = "";
@@ -117,6 +117,37 @@ async function initData() {
 
 function updateStreak(){
   document.getElementById("streak").innerText=streak;
+}
+
+function levenshteinDistance(str1, str2) {
+  const len1 = str1.length;
+  const len2 = str2.length;
+
+  // Create a 2D array to store distances
+  let dp = Array(len1 + 1).fill(null).map(() => Array(len2 + 1).fill(null));
+
+  // Initialize the first row and column of the array
+  for (let i = 0; i <= len1; i++) {
+      dp[i][0] = i;
+  }
+  for (let j = 0; j <= len2; j++) {
+      dp[0][j] = j;
+  }
+
+  // Fill the array with the minimum number of operations
+  for (let i = 1; i <= len1; i++) {
+      for (let j = 1; j <= len2; j++) {
+          const cost = str1[i - 1] === str2[j - 1] ? 0 : 1;
+          dp[i][j] = Math.min(
+              dp[i - 1][j] + 1,     // deletion
+              dp[i][j - 1] + 1,     // insertion
+              dp[i - 1][j - 1] + cost  // substitution
+          );
+      }
+  }
+
+  // The bottom-right value is the Levenshtein distance
+  return dp[len1][len2];
 }
 
 async function newVocab(loser=false) {
