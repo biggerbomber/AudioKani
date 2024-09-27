@@ -88,7 +88,7 @@ async function initData() {
 
   });
 
-  document.getElementById("submit").addEventListener("click", function() {
+  document.getElementById("submitans").addEventListener("click", function() {
     var guess= document.getElementById("guess").value.trim();
     var loser = true;
     for (var i = 0; i < answers.length; i++) {
